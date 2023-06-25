@@ -1,5 +1,6 @@
 # BFS
 ```py
+# Level wise travel
 def bfs(node,vis,ans,graph):
     vis[node] = 1
     q = deque()
@@ -58,7 +59,7 @@ def iscycle(node,parent,vis,graph):
                 return True
     return False
 ```
-## DIRECTED GRAPH - DFS - vis,pathVis
+## DIRECTED GRAPH - DFS
 ```py
 # do dfs mark vis,pathVis -> if already vis and pathVis cycle exists
 def iscyle(node,vis,pathVis,graph):
@@ -87,8 +88,9 @@ def topo(node,vis,stack,graph):
     stack.append(node)
     return stack
 ```
-## TOPOLOGICAL SORT - Kahn's Algo (detect cycle + topological order)
+## TOPOLOGICAL SORT - Kahn's Algo
 ```py
+# detect cycle + topological order
 # calculate indegree of all nodes
 # Start with nodes having 0 indegree
 # Reduce ingree in the order if it becomes 0 append to queue
@@ -120,6 +122,7 @@ def topoSort(V, graph):
 ---
 # Bipartite Graph -> O( V + 2E )
 ```py
+# Bipartite graph -> nodes can be splitted into 2 groups such that no edges are there btw nodes of the same group but only to another group 
 # color the nodes in 0 and 1 , if 2 adj node have same color then not a bipartite
 # simple bfs and add opposite color
 def isbypartite(node,color,vis,graph):
@@ -156,7 +159,7 @@ def bfs(node,vis,dis,graph):
                 q.append([adj,dt+1])
     return dis
 ```
-## Directed Graph > Single src SP -> O( V + E ) (NOT IMP)
+## Directed Graph > Single src SP -> O( V + E )
 ```py
 # Do a topo sort
 # traverse the topo stack and compute the distance
@@ -193,7 +196,7 @@ for i in range(n):
         dis[i] = -1
 return dis    
 ```
-## DIJKSTRA ALGO - FOR BOTH GRAPH -> O( E log(V) )
+## DIJKSTRA ALGO - Single Src SP -> O( E log(V) )
 ```py
 # Works for both DG and UDG
 # Does not work for -ve edge weight or -ve cycles
@@ -285,8 +288,9 @@ def countPaths(self, n: int, roads: List[List[int]]) -> int:
     return [0,ways[n-1]][dist[n-1]!=1e9]
 ```
 ---
-# Bellman-ford algo -> DG with negative weights or negative cycles -> O( V.E )
+# BELLMAN-FORD ALGO - Single Src SP -> O( V.E )
 ```py
+# DG with negative weights or negative cycles
 # Single src shortest path
 # works only for DG; else convert the UDG to DG by giving both the u->v w and v->u w in edges
 # N-1 iterations are enough to compute the distance
@@ -307,8 +311,9 @@ def bellman_ford(self, V, edges, S):
 ---
 # All Source shortest path
 
-## Floyd - Warshall Algo - All source SP (DG & UDG) with (-ve edge or -ve cycle) -> O( V.V.V )
+## Floyd - Warshall Algo - All source SP -> O( V.V.V )
 ```py
+# (DG & UDG) with (-ve edge or -ve cycle)
 # dist = [[float(inf) for j in range(V)] for i in range(V)]
 # dist[i][i] = 0 for all i
 # if no direct edge dist[i][j] = inf
@@ -350,50 +355,6 @@ for i in range(n):
     dijkstra(i,dist,graph)
     distance.append(dist)
 return distance
-```
----
-
-# DSU -> O(4 alpha)
-```py
-
-parent = [i for i in range(V)]
-size   = [1 for i in range(V)]
-rank   = [0 for i in range(V)]
-
-def find(u):
-    if u == parent[u]:
-        return u
-    parent[u] = find(parent[u])
-    return parent[u]
-
-def unionBySize(u,v):
-    pu = find(u)
-    pv = find(v)
-
-    if pu == pv:    #belong to same component
-        return # return True for edge that complete cycle
-    if size[pu] > size[pv]:
-        pu,pv = pv,pu
-    
-    parent[pu] = pv
-    size[pv] += size[pu]
-    return # return False if this edge doesn't complete cycle 
-
-def unionByRank(u,v):
-    pu = find(u)
-    pv = find(v)
-
-    if pu == pv:    #belong to same component
-        return
-    if rank[pu] < rank[pv]:
-        parent[pu] = pv
-    elif rank[pv] < rank[pu]:
-        parent[pv] = pu 
-    else:   # if equal ranks then increase any of them by 1
-        parent[pv] = pu
-        rank[pv] += 1
-    rank
-
 ```
 ---
 # MST (Minimum Spanning Tree) - DSU - Krushkal's algo
@@ -469,9 +430,10 @@ class Solution:
         return scc
 ```
 ---
-# Tarjan's Algo for detecting BRIDGES in a graph
+# Tarjan's Algo 
+## Detecting BRIDGES in a graph
 ```py
-# A bridge is an edge that if removed splits the graph into 2 components
+# A bridge is an EDGE that if removed splits the graph into 2 components
 from collections import defaultdict as dd
 class Solution:
     timer = 1
@@ -512,5 +474,99 @@ class Solution:
         bridges = []
         self.dfs(0,vis,-1,tin,low,graph,bridges)
         return bridges
+```
+## Detect ARTICULATION points in a graph
+```py
+# An articulation point is a NODE on removal splits the graph into multiple components
+class Solution:
+    timer = 0
+    def dfs(self,node,parent,vis,tin,low,mark,adj):
+        vis[node] = 1
+        tin[node] = low[node] = self.timer
+        self.timer += 1
+        child = 0
+        for nb in adj[node]:
+            if nb == parent:
+                continue
+            # already visited just get the in-time from nb
+            if vis[nb]:
+                low[node] = min(low[node],tin[nb])
+                
+            else:
+                # after returning from dfs we need to check if we can reach nodes before parent(>=)
+                # if not reachable then node is the articulation point
+                # here the parent should not be -1 i.e source
+                child += 1
+                self.dfs(nb,node,vis,tin,low,mark,adj)
+                low[node] = min(low[node],low[nb])
+                
+                if low[nb] >= tin[node] and parent != -1:
+                    mark[node] = 1
+        # check for the src node
+        if child > 1 and parent == -1:
+            mark[node] = 1
+    #Function to return Breadth First Traversal of given graph.
+    def articulationPoints(self, n, adj):
+        # code here
+        
+        vis = [0 for i in range(n)]
+        tin = [0 for i in range(n)]
+        low = [0 for i in range(n)]
+        mark = [0 for i in range(n)]
+        
+        for i in range(n):
+            if not vis[i]:
+                self.dfs(i,-1,vis,tin,low,mark,adj)
+                
+        ans = []
+        for i in range(n):
+            if mark[i]:
+                ans.append(i)
+        if ans:
+            return ans
+        return [-1]
+```
+---
+# DSU -> O(4 alpha)
+```py
+
+parent = [i for i in range(V)]
+size   = [1 for i in range(V)]
+rank   = [0 for i in range(V)]
+
+def find(u):
+    if u == parent[u]:
+        return u
+    parent[u] = find(parent[u])
+    return parent[u]
+
+def unionBySize(u,v):
+    pu = find(u)
+    pv = find(v)
+
+    if pu == pv:    #belong to same component
+        return # return True for edge that complete cycle
+    if size[pu] > size[pv]:
+        pu,pv = pv,pu
+    
+    parent[pu] = pv
+    size[pv] += size[pu]
+    return # return False if this edge doesn't complete cycle 
+
+def unionByRank(u,v):
+    pu = find(u)
+    pv = find(v)
+
+    if pu == pv:    #belong to same component
+        return
+    if rank[pu] < rank[pv]:
+        parent[pu] = pv
+    elif rank[pv] < rank[pu]:
+        parent[pv] = pu 
+    else:   # if equal ranks then increase any of them by 1
+        parent[pv] = pu
+        rank[pv] += 1
+    rank
+
 ```
 ---
