@@ -45,8 +45,11 @@
 + Example of max heap insertion
 + INPUT: `60`
 + BEFORE INSERTION
+  
 ![Max heap insertion input](Images/image.png)
+
 + AFTER INSERTION
+  
 ![Max heap after insertion](Images/image-1.png)
 
 ## Deletion Steps
@@ -56,13 +59,21 @@
 4. If yes do nothing
 5. Else swap the nodes
 6. Repeat the step `3` until we maintain the heap property or we reach the root node.
+   
 + Before Deletion
+  
 ![Max heap before poping](Images/image-2.png)
+
 + Step 2 of placing last node as root
+  
 ![Alt text](Images/image-3.png)
+
 + Compare with its children swap if required and repeat steps
+  
 ![Alt text](Images/image-4.png)
+
 + Final max heap after deletion
+  
 ![Alt text](Images/image-5.png)
 
 
@@ -84,14 +95,22 @@
 1. Take last node and check whether it hold the heap property
 2. If `Yes continue` going left and repeat operations
 3. If `No swap` it with the corresponding `child` and repeat steps for both the swapped child and parent node to maintain the property
+   
 + Before Heapify
+  
 ![Alt text](Images/image-8.png)
+
 + Swapped the nodes `15` and `25`
+  
 ![Alt text](Images/image-9.png)
+
 + Swapped the nodes `20` and `40`
+  
 ![Alt text](Images/image-10.png)
+
 + Swapped the nodes `10` and `40`
 + Swapped the nodes `10` and `20`
+  
 ![Alt text](Images/image-11.png)
 
 # Priority Queue( C++ ) or Heapq in (Python)
