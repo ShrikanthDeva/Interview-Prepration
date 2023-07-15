@@ -45,9 +45,9 @@
 + Example of max heap insertion
 + INPUT: `60`
 + BEFORE INSERTION
-![Max heap insertion input](image.png)
+![Max heap insertion input](Images/image.png)
 + AFTER INSERTION
-![Max heap after insertion](image-1.png)
+![Max heap after insertion](Images/image-1.png)
 
 ## Deletion Steps
 1. Remove the root node
@@ -57,13 +57,13 @@
 5. Else swap the nodes
 6. Repeat the step `3` until we maintain the heap property or we reach the root node.
 + Before Deletion
-![Max heap before poping](image-2.png)
+![Max heap before poping](Images/image-2.png)
 + Step 2 of placing last node as root
-![Alt text](image-3.png)
+![Alt text](Images/image-3.png)
 + Compare with its children swap if required and repeat steps
-![Alt text](image-4.png)
+![Alt text](Images/image-4.png)
 + Final max heap after deletion
-![Alt text](image-5.png)
+![Alt text](Images/image-5.png)
 
 
 ## Heap sort Steps
@@ -73,7 +73,7 @@
 2. Delete all the elements one by one
 3. Store the deleted element in the last possible heap position
 
-![Alt text](image-7.png)
+![Alt text](Images/image-7.png)
 
 + Time complexity: `O( 2* nlogn)` -> `O(nlogn)`
 
@@ -85,14 +85,14 @@
 2. If `Yes continue` going left and repeat operations
 3. If `No swap` it with the corresponding `child` and repeat steps for both the swapped child and parent node to maintain the property
 + Before Heapify
-![Alt text](image-8.png)
+![Alt text](Images/image-8.png)
 + Swapped the nodes `15` and `25`
-![Alt text](image-9.png)
+![Alt text](Images/image-9.png)
 + Swapped the nodes `20` and `40`
-![Alt text](image-10.png)
+![Alt text](Images/image-10.png)
 + Swapped the nodes `10` and `40`
 + Swapped the nodes `10` and `20`
-![Alt text](image-11.png)
+![Alt text](Images/image-11.png)
 
 # Priority Queue( C++ ) or Heapq in (Python)
 + Its a data structure which uses this heap property
@@ -103,7 +103,7 @@
   + `Lower the value Higher the priority` -> `MIN HEAP`
   + `Higher the value Higher the priority` -> `MAX HEAP`
 
-![Alt text](image-12.png)
+![Alt text](Images/image-12.png)
 
 # PYTHON CODE FOR IMPLEMENTING HEAPQ
 
