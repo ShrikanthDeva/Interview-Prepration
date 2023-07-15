@@ -65,6 +65,7 @@
 + Final max heap after deletion
 ![Alt text](image-5.png)
 
+
 ## Heap sort Steps
 + `KEY IDEA` If we delete all the elements and place them in the last possible position we get the sorted array
 
