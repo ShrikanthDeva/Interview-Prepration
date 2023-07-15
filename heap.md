@@ -200,3 +200,12 @@ def heapify(x):
     for i in reversed(range(n//2)):
         _siftup(x, i)
 ```
+
+# Applications of Priority Queue: 
++ CPU Scheduling
++ Graph algorithms like Dijkstra’s shortest path algorithm, Prim’s Minimum Spanning Tree, etc.
+Stack Implementation
++ All queue applications where priority is involved.
++ Data compression in Huffman code
++ Event-driven simulation such as customers waiting in a queue.
++ Finding Kth largest/smallest element.
